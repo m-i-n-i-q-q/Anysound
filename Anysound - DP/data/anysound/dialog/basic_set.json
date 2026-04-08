@@ -1,0 +1,66 @@
+{
+  "type": "minecraft:multi_action",
+  "title": {
+    "translate": "anysound.dialog.title",
+    "fallback": "Custom Sound Setting",
+    "type": "translatable"
+  },
+  "body": {
+    "type": "minecraft:plain_message",
+    "contents": {
+      "translate": "anysound.dialog.body",
+      "fallback": "Please input the datas of your sound:",
+      "type": "translatable"
+    }
+  },
+  "inputs": [
+    {
+      "type": "minecraft:text",
+      "key": "sound_name",
+      "width": 200,
+      "label": {
+        "translate": "anysound.dialog.input.sound_name",
+        "fallback": "Sound’s name"
+      },
+      "initial": "The sound’s name",
+      "max_length": 256
+    },
+    {
+      "type": "minecraft:text",
+      "key": "sound_author",
+      "label": {
+        "translate": "anysound.dialog.input.sound_author",
+        "fallback": "Sound’s author"
+      },
+      "initial": "Unknown",
+      "max_length": 128
+    }
+  ],
+  "can_close_with_escape": false,
+  "after_action": "close",
+  "pause": false,
+  "exit_action": {
+    "label": {
+      "translate": "gui.cancel",
+      "fallback": "Cancel"
+    },
+    "action": {
+      "type": "minecraft:run_command",
+      "command": "/trigger anysound.dialog set -1"
+    }
+  },
+  "actions": [
+    {
+      "label": {
+        "translate": "anysound.dialog.action.next",
+        "fallback": "Next step",
+        "type": "translatable"
+      },
+      "width": 200,
+      "action": {
+        "type": "minecraft:dynamic/run_command",
+        "template": "function anysound:sound_setting/main {name:\"$(sound_name)\",author:\"$(sound_author)\"}"
+      }
+    }
+  ]
+}

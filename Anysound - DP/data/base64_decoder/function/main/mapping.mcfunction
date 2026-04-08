@@ -1,0 +1,6 @@
+$data modify storage base64_decoder:temp output.0 set from storage base64_decoder:maps $(0)
+$data modify storage base64_decoder:temp output.1 set from storage base64_decoder:maps $(1)
+$data modify storage base64_decoder:temp output.2 set from storage base64_decoder:maps $(2)
+$data modify storage base64_decoder:temp output.3 set from storage base64_decoder:maps $(3)
+$data modify storage base64_decoder:temp output.4 set from storage base64_decoder:maps $(4)
+$data modify storage base64_decoder:temp output.5 set from storage base64_decoder:maps $(5)

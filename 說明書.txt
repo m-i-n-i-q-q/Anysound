@@ -1,0 +1,3 @@
+啟動設定介面：/trigger anysound.dialog set 1
+*若遇到執行確認警告，請忽略警告繼續操作。
+取得分析資料（Main data），請打開Analyzer.html勾選顯示壓縮資料後操作。輸入方式為從顯示的壓縮資料開頭直到出現空行為止（不含空行）為第一次的Main data輸入，跳過空行後再持續至下一次空行為第二次Main data輸入，依此類推。

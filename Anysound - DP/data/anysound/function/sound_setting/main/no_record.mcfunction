@@ -1,0 +1,1 @@
+return run function anysound:sound_setting/main/no_record/main with entity @s

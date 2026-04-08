@@ -1,0 +1,60 @@
+{
+  "type": "minecraft:multi_action",
+  "title": {
+    "translate": "anysound.dialog.title",
+    "fallback": "Custom Sound Setting",
+    "type": "translatable"
+  },
+  "body": {
+    "type": "minecraft:plain_message",
+    "contents": {
+      "translate": "anysound.dialog.body.2",
+      "fallback": "Please input the data’s of your sound:",
+      "type": "translatable"
+    }
+  },
+  "inputs": [
+    {
+      "type": "minecraft:text",
+      "key": "sound_data",
+      "width": 350,
+      "label": {
+        "translate": "anysound.dialog.main_data",
+        "fallback": "Main data (get from analyzer):"
+      },
+      "label_visible": true,
+      "max_length": 32768,
+      "multiline": {
+        "max_lines": 990,
+        "height": 512
+      }
+    }
+  ],
+  "can_close_with_escape": false,
+  "after_action": "close",
+  "pause": false,
+  "actions": [
+    {
+      "label": {
+        "translate": "gui.done",
+        "fallback": "Done",
+        "type": "translatable"
+      },
+      "action": {
+        "type": "minecraft:dynamic/run_command",
+        "template": "function anysound:sound_setting/next {df:1,data:\"$(sound_data)\"}"
+      }
+    },
+    {
+      "label": {
+        "translate": "anysound.dialog.action.next",
+        "fallback": "Next step",
+        "type": "translatable"
+      },
+      "action": {
+        "type": "minecraft:dynamic/run_command",
+        "template": "function anysound:sound_setting/next {df:0,data:\"$(sound_data)\"}"
+      }
+    }
+  ]
+}

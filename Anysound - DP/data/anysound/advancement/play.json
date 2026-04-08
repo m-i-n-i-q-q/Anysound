@@ -1,0 +1,27 @@
+{
+    "criteria": {
+        "play": {
+            "trigger": "using_item",
+            "conditions": {
+                "item": {
+                    "items": [
+                        "goat_horn"
+                    ],
+                    "predicates": {
+                        "custom_data": {
+                            "anysound:disc": {
+                                "flag": {}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "requirements": [
+        ["play"]
+    ],
+    "rewards": {
+        "function": "anysound:sound_playing/advancement"
+    } 
+}

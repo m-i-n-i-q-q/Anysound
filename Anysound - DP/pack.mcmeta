@@ -1,0 +1,33 @@
+{
+  "pack": {
+    "description": "Anysound - DP",
+    "min_format": [
+      94.1
+    ],
+    "max_format": [
+      1000000
+    ]
+  },
+  "overlays": {
+    "entries": [
+      {
+        "directory": "Hmmm",
+        "min_format": [
+          94.1
+        ],
+        "max_format": [
+          1000000
+        ]
+      },
+      {
+        "directory": "gu",
+        "min_format": [
+          94.1
+        ],
+        "max_format": [
+          1000000
+        ]
+      }
+    ]
+  }
+}

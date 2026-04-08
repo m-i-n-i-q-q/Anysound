@@ -1,0 +1,8 @@
+{
+  "values": [
+    "gu:zzz/load",
+    "anysound:load",
+    "base64_decoder:load",
+    "main:setup"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "pack": {
+    "description": "Anysound - RP",
+    "min_format": [
+      75
+    ],
+    "max_format": [
+      1000000
+    ]
+  }
+}

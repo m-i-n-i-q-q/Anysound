@@ -1,0 +1,1 @@
+$function anysound:sound_setting/next/output/empty/main with storage anysound:player data[{UUID:$(UUID)}]

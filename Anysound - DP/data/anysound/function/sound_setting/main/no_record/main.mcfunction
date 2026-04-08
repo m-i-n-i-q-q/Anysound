@@ -1,0 +1,1 @@
+$return run execute unless data storage anysound:player data[{UUID:$(UUID)}]
