@@ -1,0 +1,11 @@
+{
+  "pack": {
+    "description": "Anysound - DP",
+    "min_format": [
+      94.1
+    ],
+    "max_format": [
+      1000000
+    ]
+  }
+}
