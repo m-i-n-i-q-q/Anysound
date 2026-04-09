@@ -2,30 +2,13 @@
 <html lang="zh">
 <head>
 <meta charset="UTF-8">
-<title>音訊單音分析器</title>
+<title>音訊單音分析器（Worker版）</title>
 
 <style>
-body{
-font-family:sans-serif;
-margin:40px;
-background:#f0f0f0;
-}
-.panel{
-background:white;
-padding:20px;
-margin-bottom:20px;
-border-radius:10px;
-box-shadow:0 2px 10px rgba(0,0,0,0.1);
-}
-textarea{
-width:100%;
-height:200px;
-}
-button{
-padding:10px 20px;
-font-size:16px;
-cursor:pointer;
-}
+body{font-family:sans-serif;margin:40px;background:#f0f0f0;}
+.panel{background:white;padding:20px;margin-bottom:20px;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,0.1);}
+textarea{width:100%;height:200px;}
+button{padding:10px 20px;font-size:16px;cursor:pointer;}
 </style>
 </head>
 
@@ -42,29 +25,19 @@ cursor:pointer;
 <h3>分析設定</h3>
 
 <label>最大單音數</label>
-<input id="maxPartials" type="number" value="60">
-
-<br><br>
+<input id="maxPartials" type="number" value="30"><br><br>
 
 <label>分析時間間隔 (秒)</label>
-<input id="frameDt" type="number" step="0.01" value="0.05">
-
-<br><br>
+<input id="frameDt" type="number" step="0.01" value="0.1"><br><br>
 
 <label>FFT視窗大小</label>
-<input id="fftSize" type="number" value="2048">
-
-<br><br>
+<input id="fftSize" type="number" value="2048"><br><br>
 
 <label>頻率匹配範圍 Hz</label>
-<input id="matchHz" type="number" value="15">
-
-<br><br>
+<input id="matchHz" type="number" value="15"><br><br>
 
 <label>能量門檻</label>
-<input id="ampThreshold" type="number" step="0.0001" value="0.001">
-
-<br><br>
+<input id="ampThreshold" type="number" step="0.0001" value="0.001"><br><br>
 
 <button onclick="analyze()">開始分析</button>
 
@@ -72,392 +45,67 @@ cursor:pointer;
 
 <div class="panel">
 <h3>分析資訊</h3>
-<div id="info"></div>
+<div id="info">尚未開始</div>
 </div>
 
 <div class="panel">
 <h3>JSON輸出</h3>
-
 <textarea id="jsonOutput"></textarea>
-
-<br><br>
-
-<label>
-<input type="checkbox" id="showCompressed">
-顯示壓縮資料
-</label>
-
-<br><br>
-
-<textarea id="compressedOutput" style="display:none;"></textarea>
-
-<br><br>
-
-<button onclick="downloadJSON()">下載 JSON</button>
-
 </div>
 
 <script>
-
-const GROUND_BASES=[40,160,640,2560,10240]
-
-class Track{
-constructor(g,m){
-this.ground_index=g
-this.multiplier=m
-this.sin_amp=0
-this.cos_amp=0
-this.missed=0
-}
-}
-
-function decodeFreq(g,m){
-return GROUND_BASES[g]*m
-}
-
-function encodeFrequency(f){
-if(f<20 || f>20000) return null
-
-for(let i=0;i<GROUND_BASES.length;i++){
-let g=GROUND_BASES[i]
-if(f>=g/2 && f<g*2){
-return{
-ground_index:i,
-multiplier:f/g
-}
-}
-}
-return null
-}
-
-function floatToBase64(x){
-let buf=new ArrayBuffer(4)
-let dv=new DataView(buf)
-dv.setFloat32(0,x,true)
-
-let bytes=new Uint8Array(buf)
-let bin=""
-for(let b of bytes) bin+=String.fromCharCode(b)
-
-let b64=btoa(bin)
-return b64.replace(/==$/,"")
-}
-
-function compressFrames(frames){
-
-const MAX_LEN=32500
-
-let segments=[]
-let current=""
-let first=true
-
-for(let frame of frames){
-
-let frameStr=""
-
-if(frame.length===0){
-frameStr="empty"
-}else{
-for(let p of frame){
-frameStr+=
-p.q.toString()+
-p.g.toString()+
-floatToBase64(p.m)+
-floatToBase64(p.s)+
-floatToBase64(p.c)
-}
-}
-
-let addition = first ? "\"" + frameStr + "\"": ",\"" + frameStr + "\""
-
-if(current.length + addition.length > MAX_LEN){
-
-if(current.length>0){
-segments.push(current)
-}
-
-current = "\"" + frameStr + "\""
-first = false
-
-}else{
-
-current += addition
-first = false
-
-}
-
-}
-
-if(current.length>0){
-segments.push(current)
-}
-
-return segments
-}
 
 async function analyze(){
 
 let file=document.getElementById("fileInput").files[0]
 if(!file){
-alert("請先選擇音訊檔")
-return
+  alert("請先選擇音訊檔")
+  return
 }
 
-let maxPartials=Number(document.getElementById("maxPartials").value)
-let frameDt=Number(document.getElementById("frameDt").value)
-let fftSize=Number(document.getElementById("fftSize").value)
-let matchHz=Number(document.getElementById("matchHz").value)
-let ampThreshold=Number(document.getElementById("ampThreshold").value)
+document.getElementById("info").innerHTML="讀取音訊中..."
 
 let buffer=await file.arrayBuffer()
 
+// 主執行緒解碼
 let audioCtx=new AudioContext()
 let audio=await audioCtx.decodeAudioData(buffer)
 
-let sr=audio.sampleRate
 let data=audio.getChannelData(0)
+let sr=audio.sampleRate
 
-let hop=Math.floor(frameDt*sr)
-let window=hannWindow(fftSize)
+document.getElementById("info").innerHTML="啟動分析..."
 
-let tracks=[]
-let frames=[]
+let worker=new Worker("worker.js")
 
-let startTime=performance.now()
-
-for(let start=0;start+fftSize<data.length;start+=hop){
-
-let segment=new Float32Array(fftSize)
-for(let i=0;i<fftSize;i++)
-segment[i]=data[start+i]*window[i]
-
-let spectrum=fft(segment,sr)
-
-let peaks=findPeaks(spectrum.mag,maxPartials)
-
-let detections=[]
-
-for(let i of peaks){
-
-let A=spectrum.mag[i]/fftSize
-if(A<ampThreshold) continue
-
-let p=spectrum.phase[i]
-let encoded=encodeFrequency(spectrum.freqs[i])
-if(!encoded) continue
-
-detections.push({
-ground_index:encoded.ground_index,
-multiplier:encoded.multiplier,
-sin_amp:A*Math.cos(p),
-cos_amp:A*Math.sin(p)
+worker.postMessage({
+  data:data,
+  sampleRate:sr,
+  maxPartials:Number(maxPartials.value),
+  frameDt:Number(frameDt.value),
+  fftSize:Number(fftSize.value),
+  matchHz:Number(matchHz.value),
+  ampThreshold:Number(ampThreshold.value)
 })
 
+worker.onmessage=function(e){
+
+  if(e.data.progress!==undefined){
+    document.getElementById("info").innerHTML=
+      "分析中：" + (e.data.progress*100).toFixed(1) + "%"
+  }
+
+  if(e.data.done){
+
+    let result={frames:e.data.frames}
+
+    document.getElementById("jsonOutput").value=
+      JSON.stringify(result,null,2)
+
+    document.getElementById("info").innerHTML+="<br>完成！"
+  }
 }
 
-for(let t of tracks) t.missed++
-
-for(let d of detections){
-
-let best=null
-let bestDf=matchHz
-
-for(let t of tracks){
-
-let f1=decodeFreq(t.ground_index,t.multiplier)
-let f2=decodeFreq(d.ground_index,d.multiplier)
-
-let df=Math.abs(f1-f2)
-
-if(df<bestDf){
-best=t
-bestDf=df
-}
-
-}
-
-if(best){
-best.ground_index=d.ground_index
-best.multiplier=d.multiplier
-best.sin_amp=d.sin_amp
-best.cos_amp=d.cos_amp
-best.missed=0
-}else{
-let t=new Track(d.ground_index,d.multiplier)
-t.sin_amp=d.sin_amp
-t.cos_amp=d.cos_amp
-tracks.push(t)
-}
-
-}
-
-tracks=tracks.filter(t=>t.missed<3)
-
-let frame=[]
-
-for(let t of tracks){
-
-let q
-if(Math.sign(t.sin_amp)>=0 && Math.sign(t.cos_amp)>=0) q=1
-else if(Math.sign(t.sin_amp)<0 && Math.sign(t.cos_amp)>=0) q=2
-else if(Math.sign(t.sin_amp)<0 && Math.sign(t.cos_amp)<0) q=3
-else q=4
-
-frame.push({
-q:q,
-g:t.ground_index,
-m:Math.fround(t.multiplier),
-s:Math.fround(Math.abs(t.sin_amp)),
-c:Math.fround(Math.abs(t.cos_amp))
-})
-
-}
-
-frames.push(frame)
-
-}
-
-normalizeAmplitudes(frames)
-
-let result={frames:frames}
-let json=JSON.stringify(result,null,2)
-
-document.getElementById("jsonOutput").value=json
-
-let endTime=performance.now()
-
-document.getElementById("info").innerHTML=
-"幀數: "+frames.length+
-"<br>平均單音數: "+avgPartials(frames).toFixed(1)+
-"<br>分析時間: "+((endTime-startTime)/1000).toFixed(2)+" 秒"
-
-window.resultData=result
-
-if(document.getElementById("showCompressed").checked){
-
-let segments=compressFrames(frames)
-
-document.getElementById("compressedOutput").style.display="block"
-document.getElementById("compressedOutput").value=segments.join("\n\n")
-
-}else{
-document.getElementById("compressedOutput").style.display="none"
-}
-
-}
-
-function normalizeAmplitudes(frames){
-
-let maxAmp=0
-
-for(let f of frames){
-for(let p of f){
-let a=Math.sqrt(p.s*p.s+p.c*p.c)
-if(a>maxAmp) maxAmp=a
-}
-}
-
-if(maxAmp===0) return
-
-for(let f of frames){
-for(let p of f){
-p.s/=maxAmp
-p.c/=maxAmp
-}
-}
-
-}
-
-function avgPartials(frames){
-let s=0
-for(let f of frames) s+=f.length
-return s/frames.length
-}
-
-function downloadJSON(){
-let blob=new Blob([JSON.stringify(window.resultData)],{type:"application/json"})
-let a=document.createElement("a")
-a.href=URL.createObjectURL(blob)
-a.download="analysis.json"
-a.click()
-}
-
-function findPeaks(arr,n){
-let idx=[...arr.keys()]
-idx.sort((a,b)=>arr[b]-arr[a])
-return idx.slice(0,n)
-}
-
-function hannWindow(N){
-let w=new Float32Array(N)
-for(let i=0;i<N;i++)
-w[i]=0.5*(1-Math.cos(2*Math.PI*i/(N-1)))
-return w
-}
-
-function fft(signal,sr){
-
-let N=signal.length
-let re=signal.slice()
-let im=new Float32Array(N)
-
-let levels=Math.log2(N)
-
-for(let i=0;i<N;i++){
-let j=reverseBits(i,levels)
-if(j>i){
-let tr=re[i]
-re[i]=re[j]
-re[j]=tr
-}
-}
-
-for(let size=2;size<=N;size*=2){
-
-let half=size/2
-let step=N/size
-
-for(let i=0;i<N;i+=size){
-
-for(let j=i,k=0;j<i+half;j++,k+=step){
-
-let l=j+half
-let angle=2*Math.PI*k/N
-
-let tpre=re[l]*Math.cos(angle)+im[l]*Math.sin(angle)
-let tpim=-re[l]*Math.sin(angle)+im[l]*Math.cos(angle)
-
-re[l]=re[j]-tpre
-im[l]=im[j]-tpim
-
-re[j]+=tpre
-im[j]+=tpim
-
-}
-
-}
-
-}
-
-let mag=[],phase=[],freqs=[]
-
-for(let i=0;i<N/2;i++){
-mag.push(Math.hypot(re[i],im[i]))
-phase.push(Math.atan2(im[i],re[i]))
-freqs.push(i*sr/N)
-}
-
-return{mag,phase,freqs}
-
-}
-
-function reverseBits(x,bits){
-let y=0
-for(let i=0;i<bits;i++){
-y=(y<<1)|(x&1)
-x>>=1
-}
-return y
 }
 
 </script>
