@@ -1,4 +1,5 @@
 const GROUND_BASES=[40,160,640,2560,10240]
+const MAX_LEN=32500
 
 class Track{
 constructor(g,m){
@@ -10,44 +11,51 @@ this.missed=0
 }
 }
 
-function decodeFreq(g,m){
-return GROUND_BASES[g]*m
+function floatToBase64(x){
+let buf=new ArrayBuffer(4)
+let dv=new DataView(buf)
+dv.setFloat32(0,x,true)
+
+let bytes=new Uint8Array(buf)
+let bin=""
+for(let b of bytes) bin+=String.fromCharCode(b)
+
+return btoa(bin).replace(/==$/,"")
 }
 
 function encodeFrequency(f){
-if(f<20 || f>20000) return null
-
+if(f<20||f>20000)return null
 for(let i=0;i<GROUND_BASES.length;i++){
 let g=GROUND_BASES[i]
-if(f>=g/2 && f<g*2){
-return{
-ground_index:i,
-multiplier:f/g
-}
+if(f>=g/2&&f<g*2){
+return{ground_index:i,multiplier:f/g}
 }
 }
 return null
 }
 
+function decodeFreq(g,m){
+return GROUND_BASES[g]*m
+}
+
 self.onmessage=async function(e){
 
-const {
-data,
-sampleRate,
-maxPartials,
-frameDt,
-fftSize,
-matchHz,
-ampThreshold
-}=e.data
+let {data,sampleRate}=e.data
+
+let fftSize=2048
+let frameDt=0.1
+let maxPartials=30
+let matchHz=15
+let ampThreshold=0.001
 
 let sr=sampleRate
-
 let hop=Math.floor(frameDt*sr)
 let window=hannWindow(fftSize)
 
 let tracks=[]
-let frames=[]
+
+let current=""
+let first=true
 
 for(let start=0,frameIndex=0; start+fftSize<data.length; start+=hop,frameIndex++){
 
@@ -61,17 +69,16 @@ let peaks=findPeaks(spectrum.mag,maxPartials)
 let detections=[]
 
 for(let i of peaks){
-
 let A=spectrum.mag[i]/fftSize
 if(A<ampThreshold) continue
 
 let p=spectrum.phase[i]
-let encoded=encodeFrequency(spectrum.freqs[i])
-if(!encoded) continue
+let enc=encodeFrequency(spectrum.freqs[i])
+if(!enc) continue
 
 detections.push({
-ground_index:encoded.ground_index,
-multiplier:encoded.multiplier,
+ground_index:enc.ground_index,
+multiplier:enc.multiplier,
 sin_amp:A*Math.cos(p),
 cos_amp:A*Math.sin(p)
 })
@@ -85,12 +92,10 @@ let best=null
 let bestDf=matchHz
 
 for(let t of tracks){
-
-let f1=decodeFreq(t.ground_index,t.multiplier)
-let f2=decodeFreq(d.ground_index,d.multiplier)
-
-let df=Math.abs(f1-f2)
-
+let df=Math.abs(
+decodeFreq(t.ground_index,t.multiplier)-
+decodeFreq(d.ground_index,d.multiplier)
+)
 if(df<bestDf){
 best=t
 bestDf=df
@@ -98,22 +103,21 @@ bestDf=df
 }
 
 if(best){
-best.ground_index=d.ground_index
-best.multiplier=d.multiplier
-best.sin_amp=d.sin_amp
-best.cos_amp=d.cos_amp
-best.missed=0
+Object.assign(best,d,{missed:0})
 }else{
 let t=new Track(d.ground_index,d.multiplier)
-t.sin_amp=d.sin_amp
-t.cos_amp=d.cos_amp
+Object.assign(t,d)
 tracks.push(t)
 }
 }
 
 tracks=tracks.filter(t=>t.missed<3)
 
-let frame=[]
+let frameStr=""
+
+if(tracks.length===0){
+frameStr="empty"
+}else{
 
 for(let t of tracks){
 
@@ -123,51 +127,41 @@ else if(Math.sign(t.sin_amp)<0 && Math.sign(t.cos_amp)>=0) q=2
 else if(Math.sign(t.sin_amp)<0 && Math.sign(t.cos_amp)<0) q=3
 else q=4
 
-frame.push({
-q:q,
-g:t.ground_index,
-m:Math.fround(t.multiplier),
-s:Math.fround(Math.abs(t.sin_amp)),
-c:Math.fround(Math.abs(t.cos_amp))
-})
+frameStr +=
+q.toString()+
+t.ground_index.toString()+
+floatToBase64(Math.fround(t.multiplier))+
+floatToBase64(Math.fround(Math.abs(t.sin_amp)))+
+floatToBase64(Math.fround(Math.abs(t.cos_amp)))
+}
 }
 
-frames.push(frame)
+let addition = first ? `"${frameStr}"` : `,"${frameStr}"`
 
-// 讓出執行權 + 進度
+if(current.length + addition.length > MAX_LEN){
+
+self.postMessage({segment:current})
+current = `"${frameStr}"`
+first=false
+
+}else{
+
+current += addition
+first=false
+}
+
+// ⭐不卡 UI
 if(frameIndex % 50 === 0){
 self.postMessage({progress:start/data.length})
 await new Promise(r=>setTimeout(r,0))
 }
 }
 
-normalizeAmplitudes(frames)
-
-self.postMessage({
-done:true,
-frames:frames
-})
+if(current.length>0){
+self.postMessage({segment:current})
 }
 
-function normalizeAmplitudes(frames){
-
-let maxAmp=0
-
-for(let f of frames){
-for(let p of f){
-let a=Math.sqrt(p.s*p.s+p.c*p.c)
-if(a>maxAmp) maxAmp=a
-}
-}
-
-if(maxAmp===0) return
-
-for(let f of frames){
-for(let p of f){
-p.s/=maxAmp
-p.c/=maxAmp
-}
-}
+self.postMessage({done:true})
 }
 
 function findPeaks(arr,n){
@@ -194,38 +188,33 @@ let levels=Math.log2(N)
 for(let i=0;i<N;i++){
 let j=reverseBits(i,levels)
 if(j>i){
-let tr=re[i]
-re[i]=re[j]
-re[j]=tr
+let t=re[i]; re[i]=re[j]; re[j]=t
 }
 }
 
 for(let size=2;size<=N;size*=2){
-
 let half=size/2
 let step=N/size
 
 for(let i=0;i<N;i+=size){
-
 for(let j=i,k=0;j<i+half;j++,k+=step){
 
 let l=j+half
-let angle=2*Math.PI*k/N
+let ang=2*Math.PI*k/N
 
-let tpre=re[l]*Math.cos(angle)+im[l]*Math.sin(angle)
-let tpim=-re[l]*Math.sin(angle)+im[l]*Math.cos(angle)
+let tr=re[l]*Math.cos(ang)+im[l]*Math.sin(ang)
+let ti=-re[l]*Math.sin(ang)+im[l]*Math.cos(ang)
 
-re[l]=re[j]-tpre
-im[l]=im[j]-tpim
+re[l]=re[j]-tr
+im[l]=im[j]-ti
 
-re[j]+=tpre
-im[j]+=tpim
+re[j]+=tr
+im[j]+=ti
 }
 }
 }
 
 let mag=[],phase=[],freqs=[]
-
 for(let i=0;i<N/2;i++){
 mag.push(Math.hypot(re[i],im[i]))
 phase.push(Math.atan2(im[i],re[i]))
