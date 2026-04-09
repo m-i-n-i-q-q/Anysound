@@ -2,55 +2,31 @@
 <html lang="zh">
 <head>
 <meta charset="UTF-8">
-<title>音訊單音分析器</title>
+<title>音訊分析器（壓縮輸出）</title>
 
 <style>
 body{font-family:sans-serif;margin:40px;background:#f0f0f0;}
-.panel{background:white;padding:20px;margin-bottom:20px;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,0.1);}
+.panel{background:white;padding:20px;margin-bottom:20px;border-radius:10px;}
 textarea{width:100%;height:200px;}
-button{padding:10px 20px;font-size:16px;cursor:pointer;}
 </style>
 </head>
 
 <body>
 
-<h1>音訊單音分析器</h1>
+<h1>音訊分析器（壓縮模式）</h1>
 
 <div class="panel">
-<h3>選擇音訊檔</h3>
-<input type="file" id="fileInput" accept=".wav,.mp3,.ogg,.m4a,.aac">
-</div>
-
-<div class="panel">
-<h3>分析設定</h3>
-
-<label>最大單音數</label>
-<input id="maxPartials" type="number" value="30"><br><br>
-
-<label>分析時間間隔 (秒)</label>
-<input id="frameDt" type="number" step="0.01" value="0.1"><br><br>
-
-<label>FFT視窗大小</label>
-<input id="fftSize" type="number" value="2048"><br><br>
-
-<label>頻率匹配範圍 Hz</label>
-<input id="matchHz" type="number" value="15"><br><br>
-
-<label>能量門檻</label>
-<input id="ampThreshold" type="number" step="0.0001" value="0.001"><br><br>
-
+<input type="file" id="fileInput">
+<br><br>
 <button onclick="analyze()">開始分析</button>
-
 </div>
 
 <div class="panel">
-<h3>分析資訊</h3>
 <div id="info">尚未開始</div>
 </div>
 
 <div class="panel">
-<h3>JSON輸出</h3>
-<textarea id="jsonOutput"></textarea>
+<textarea id="output"></textarea>
 </div>
 
 <script>
@@ -59,50 +35,37 @@ async function analyze(){
 
 let file=document.getElementById("fileInput").files[0]
 if(!file){
-  alert("請先選擇音訊檔")
+  alert("請選擇音訊")
   return
 }
 
-document.getElementById("info").innerHTML="讀取音訊中..."
-
 let buffer=await file.arrayBuffer()
 
-// 主執行緒解碼
 let audioCtx=new AudioContext()
 let audio=await audioCtx.decodeAudioData(buffer)
 
 let data=audio.getChannelData(0)
 let sr=audio.sampleRate
 
-document.getElementById("info").innerHTML="啟動分析..."
-
 let worker=new Worker("worker.js")
 
 worker.postMessage({
   data:data,
-  sampleRate:sr,
-  maxPartials:Number(maxPartials.value),
-  frameDt:Number(frameDt.value),
-  fftSize:Number(fftSize.value),
-  matchHz:Number(matchHz.value),
-  ampThreshold:Number(ampThreshold.value)
+  sampleRate:sr
 })
 
 worker.onmessage=function(e){
 
   if(e.data.progress!==undefined){
-    document.getElementById("info").innerHTML=
-      "分析中：" + (e.data.progress*100).toFixed(1) + "%"
+    info.innerText="進度："+(e.data.progress*100).toFixed(1)+"%"
+  }
+
+  if(e.data.segment){
+    output.value += e.data.segment + "\n\n"
   }
 
   if(e.data.done){
-
-    let result={frames:e.data.frames}
-
-    document.getElementById("jsonOutput").value=
-      JSON.stringify(result,null,2)
-
-    document.getElementById("info").innerHTML+="<br>完成！"
+    info.innerText="完成！"
   }
 }
 
