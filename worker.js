@@ -44,7 +44,7 @@ let {data,sampleRate}=e.data
 
 let fftSize=2048
 let frameDt=0.05
-let maxPartials=60
+let maxPartials=30
 let matchHz=15
 let ampThreshold=0.001
 
@@ -89,7 +89,7 @@ for(let t of tracks) t.missed++
 for(let d of detections){
 
 let best=null
-let bestDf=matchHz
+let bestDf=matchHz*0.7
 
 for(let t of tracks){
 let df=Math.abs(
@@ -103,7 +103,17 @@ bestDf=df
 }
 
 if(best){
-Object.assign(best,d,{missed:0})
+
+let alpha = 0.2  // 平滑強度（可調）
+
+best.sin_amp = best.sin_amp*(1-alpha) + d.sin_amp*alpha
+best.cos_amp = best.cos_amp*(1-alpha) + d.cos_amp*alpha
+
+best.multiplier = best.multiplier*(1-alpha) + d.multiplier*alpha
+
+best.ground_index = d.ground_index
+best.missed = 0
+
 }else{
 let t=new Track(d.ground_index,d.multiplier)
 Object.assign(t,d)
