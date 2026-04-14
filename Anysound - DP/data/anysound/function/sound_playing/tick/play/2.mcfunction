@@ -1,2 +1,2 @@
-$playsound anysound:psin.$(g) master @s ~ ~ ~ $(s) $(m)
-$playsound anysound:ncos.$(g) master @s ~ ~ ~ $(c) $(m)
+$playsound anysound:psin.$(g) master @p[distance=..4] ~ ~ ~ $(s) $(m) $(s)
+$playsound anysound:ncos.$(g) master @p[distance=..4] ~ ~ ~ $(c) $(m) $(c)

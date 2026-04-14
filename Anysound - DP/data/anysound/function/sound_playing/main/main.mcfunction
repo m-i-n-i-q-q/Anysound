@@ -1,4 +1,4 @@
-item replace entity @s container.0 with egg[item_model="minecraft:air"]
+#item replace entity @s container.0 with egg[item_model="minecraft:air"]
 
 $data modify entity @s data.anysound.storage set value "anysound_$(uuid):sound"
 $data modify entity @s data.anysound.name set value "$(name)"
