@@ -1,0 +1,442 @@
+{
+    "psin.0": {
+        "subtitle": "anysound.psin.0",
+        "replace": true,
+        "sounds": [
+            {
+                "name": "anysound:psin/0",
+                "type": "file",
+                "preload": true
+            }
+        ]
+    },
+    "psin.d0": {
+        "subtitle": "anysound.psin.0",
+        "replace": true,
+        "sounds": [
+            {
+                "name": "anysound:psin/d0",
+                "type": "file",
+                "preload": true
+            }
+        ]
+    },
+    "psin.1": {
+        "subtitle": "anysound.psin.1",
+        "replace": true,
+        "sounds": [
+            {
+                "name": "anysound:psin/1",
+                "type": "file",
+                "preload": true
+            }
+        ]
+    },
+    "psin.d1": {
+        "subtitle": "anysound.psin.1",
+        "replace": true,
+        "sounds": [
+            {
+                "name": "anysound:psin/d1",
+                "type": "file",
+                "preload": true
+            }
+        ]
+    },
+    "psin.2": {
+        "subtitle": "anysound.psin.2",
+        "replace": true,
+        "sounds": [
+            {
+                "name": "anysound:psin/2",
+                "type": "file",
+                "preload": true
+            }
+        ]
+    },
+    "psin.d2": {
+        "subtitle": "anysound.psin.2",
+        "replace": true,
+        "sounds": [
+            {
+                "name": "anysound:psin/d2",
+                "type": "file",
+                "preload": true
+            }
+        ]
+    },
+    "psin.3": {
+        "subtitle": "anysound.psin.3",
+        "replace": true,
+        "sounds": [
+            {
+                "name": "anysound:psin/3",
+                "type": "file",
+                "preload": true
+            }
+        ]
+    },
+    "psin.d3": {
+        "subtitle": "anysound.psin.3",
+        "replace": true,
+        "sounds": [
+            {
+                "name": "anysound:psin/d3",
+                "type": "file",
+                "preload": true
+            }
+        ]
+    },
+    "psin.4": {
+        "subtitle": "anysound.psin.4",
+        "replace": true,
+        "sounds": [
+            {
+                "name": "anysound:psin/4",
+                "type": "file",
+                "preload": true
+            }
+        ]
+    },
+    "psin.d4": {
+        "subtitle": "anysound.psin.4",
+        "replace": true,
+        "sounds": [
+            {
+                "name": "anysound:psin/d4",
+                "type": "file",
+                "preload": true
+            }
+        ]
+    },
+    "pcos.0": {
+        "subtitle": "anysound.pcos.0",
+        "replace": true,
+        "sounds": [
+            {
+                "name": "anysound:pcos/0",
+                "type": "file",
+                "preload": true
+            }
+        ]
+    },
+    "pcos.d0": {
+        "subtitle": "anysound.pcos.0",
+        "replace": true,
+        "sounds": [
+            {
+                "name": "anysound:pcos/d0",
+                "type": "file",
+                "preload": true
+            }
+        ]
+    },
+    "pcos.1": {
+        "subtitle": "anysound.pcos.1",
+        "replace": true,
+        "sounds": [
+            {
+                "name": "anysound:pcos/1",
+                "type": "file",
+                "preload": true
+            }
+        ]
+    },
+    "pcos.d1": {
+        "subtitle": "anysound.pcos.1",
+        "replace": true,
+        "sounds": [
+            {
+                "name": "anysound:pcos/d1",
+                "type": "file",
+                "preload": true
+            }
+        ]
+    },
+    "pcos.2": {
+        "subtitle": "anysound.pcos.2",
+        "replace": true,
+        "sounds": [
+            {
+                "name": "anysound:pcos/2",
+                "type": "file",
+                "preload": true
+            }
+        ]
+    },
+    "pcos.d2": {
+        "subtitle": "anysound.pcos.2",
+        "replace": true,
+        "sounds": [
+            {
+                "name": "anysound:pcos/d2",
+                "type": "file",
+                "preload": true
+            }
+        ]
+    },
+    "pcos.3": {
+        "subtitle": "anysound.pcos.3",
+        "replace": true,
+        "sounds": [
+            {
+                "name": "anysound:pcos/3",
+                "type": "file",
+                "preload": true
+            }
+        ]
+    },
+    "pcos.d3": {
+        "subtitle": "anysound.pcos.3",
+        "replace": true,
+        "sounds": [
+            {
+                "name": "anysound:pcos/d3",
+                "type": "file",
+                "preload": true
+            }
+        ]
+    },
+    "pcos.4": {
+        "subtitle": "anysound.pcos.4",
+        "replace": true,
+        "sounds": [
+            {
+                "name": "anysound:pcos/4",
+                "type": "file",
+                "preload": true
+            }
+        ]
+    },
+    "pcos.d4": {
+        "subtitle": "anysound.pcos.4",
+        "replace": true,
+        "sounds": [
+            {
+                "name": "anysound:pcos/d4",
+                "type": "file",
+                "preload": true
+            }
+        ]
+    },
+    "nsin.0": {
+        "subtitle": "anysound.nsin.0",
+        "replace": true,
+        "sounds": [
+            {
+                "name": "anysound:nsin/0",
+                "type": "file",
+                "preload": true
+            }
+        ]
+    },
+    "nsin.d0": {
+        "subtitle": "anysound.nsin.0",
+        "replace": true,
+        "sounds": [
+            {
+                "name": "anysound:nsin/d0",
+                "type": "file",
+                "preload": true
+            }
+        ]
+    },
+    "nsin.1": {
+        "subtitle": "anysound.nsin.1",
+        "replace": true,
+        "sounds": [
+            {
+                "name": "anysound:nsin/1",
+                "type": "file",
+                "preload": true
+            }
+        ]
+    },
+    "nsin.d1": {
+        "subtitle": "anysound.nsin.1",
+        "replace": true,
+        "sounds": [
+            {
+                "name": "anysound:nsin/d1",
+                "type": "file",
+                "preload": true
+            }
+        ]
+    },
+    "nsin.2": {
+        "subtitle": "anysound.nsin.2",
+        "replace": true,
+        "sounds": [
+            {
+                "name": "anysound:nsin/2",
+                "type": "file",
+                "preload": true
+            }
+        ]
+    },
+    "nsin.d2": {
+        "subtitle": "anysound.nsin.2",
+        "replace": true,
+        "sounds": [
+            {
+                "name": "anysound:nsin/d2",
+                "type": "file",
+                "preload": true
+            }
+        ]
+    },
+    "nsin.3": {
+        "subtitle": "anysound.nsin.3",
+        "replace": true,
+        "sounds": [
+            {
+                "name": "anysound:nsin/3",
+                "type": "file",
+                "preload": true
+            }
+        ]
+    },
+    "nsin.d3": {
+        "subtitle": "anysound.nsin.3",
+        "replace": true,
+        "sounds": [
+            {
+                "name": "anysound:nsin/d3",
+                "type": "file",
+                "preload": true
+            }
+        ]
+    },
+    "nsin.4": {
+        "subtitle": "anysound.nsin.4",
+        "replace": true,
+        "sounds": [
+            {
+                "name": "anysound:nsin/4",
+                "type": "file",
+                "preload": true
+            }
+        ]
+    },
+    "nsin.d4": {
+        "subtitle": "anysound.nsin.4",
+        "replace": true,
+        "sounds": [
+            {
+                "name": "anysound:nsin/d4",
+                "type": "file",
+                "preload": true
+            }
+        ]
+    },
+    "ncos.0": {
+        "subtitle": "anysound.ncos.0",
+        "replace": true,
+        "sounds": [
+            {
+                "name": "anysound:ncos/0",
+                "type": "file",
+                "preload": true
+            }
+        ]
+    },
+    "ncos.d0": {
+        "subtitle": "anysound.ncos.0",
+        "replace": true,
+        "sounds": [
+            {
+                "name": "anysound:ncos/d0",
+                "type": "file",
+                "preload": true
+            }
+        ]
+    },
+    "ncos.1": {
+        "subtitle": "anysound.ncos.1",
+        "replace": true,
+        "sounds": [
+            {
+                "name": "anysound:ncos/1",
+                "type": "file",
+                "preload": true
+            }
+        ]
+    },
+    "ncos.d1": {
+        "subtitle": "anysound.ncos.1",
+        "replace": true,
+        "sounds": [
+            {
+                "name": "anysound:ncos/d1",
+                "type": "file",
+                "preload": true
+            }
+        ]
+    },
+    "ncos.2": {
+        "subtitle": "anysound.ncos.2",
+        "replace": true,
+        "sounds": [
+            {
+                "name": "anysound:ncos/2",
+                "type": "file",
+                "preload": true
+            }
+        ]
+    },
+    "ncos.d2": {
+        "subtitle": "anysound.ncos.2",
+        "replace": true,
+        "sounds": [
+            {
+                "name": "anysound:ncos/d2",
+                "type": "file",
+                "preload": true
+            }
+        ]
+    },
+    "ncos.3": {
+        "subtitle": "anysound.ncos.3",
+        "replace": true,
+        "sounds": [
+            {
+                "name": "anysound:ncos/3",
+                "type": "file",
+                "preload": true
+            }
+        ]
+    },
+    "ncos.d3": {
+        "subtitle": "anysound.ncos.3",
+        "replace": true,
+        "sounds": [
+            {
+                "name": "anysound:ncos/d3",
+                "type": "file",
+                "preload": true
+            }
+        ]
+    },
+    "ncos.4": {
+        "subtitle": "anysound.ncos.4",
+        "replace": true,
+        "sounds": [
+            {
+                "name": "anysound:ncos/4",
+                "type": "file",
+                "preload": true
+            }
+        ]
+    },
+    "ncos.d4": {
+        "subtitle": "anysound.ncos.4",
+        "replace": true,
+        "sounds": [
+            {
+                "name": "anysound:ncos/d4",
+                "type": "file",
+                "preload": true
+            }
+        ]
+    }
+}
