@@ -40,11 +40,12 @@ return GROUND_BASES[g]*m
 
 self.onmessage=async function(e){
 
-let {data,sampleRate}=e.data
+let { data, sampleRate, maxPartials } = e.data
+
+maxPartials = maxPartials || 30
 
 let fftSize=2048
 let frameDt=0.025
-let maxPartials=30
 let matchHz=15
 let ampThreshold=0.001
 
