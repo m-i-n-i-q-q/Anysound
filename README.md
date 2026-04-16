@@ -6,14 +6,13 @@
 
 ## 安裝 Installation
 
-下載這個專案，視需求將 Anysound － DP／RP置入資料包／資源包資料夾中即可。
+下載這個專案，視需求將 Anysound － DP／RP 置入 資料包／資源包 資料夾中即可。
 
-    
 ## 使用方法 Usage
 
 
 ## 引用的專案 Cited projects 
 
  - [Hmmm](https://github.com/hanmindev/Hmmm)
- - [gu]
+ - [gu](https://modrinth.com/datapack/get-uuid)
 
