@@ -8,8 +8,8 @@
   "body": {
     "type": "minecraft:plain_message",
     "contents": {
-      "translate": "anysound.dialog.body.2",
-      "fallback": "Please input the data’s of your sound:",
+      "translate": "anysound.dialog.body",
+      "fallback": "Please input the datas of your sound:",
       "type": "translatable"
     }
   },
