@@ -2,16 +2,19 @@
 # Anysound
 
 以能在Minecraft遊戲內建立自定的音訊為特色的資料包與資源包搭配，無需任何額外修改，這是此專案的願景。
+
 The vision of this project is to match the datapack and resourcepack, which is characterized by the ability to create custom sound in the Minecraft game without any additional modification.
 
 ## 適用版本 Version
 
 此專案目前適用於不早於Minecraft Java版1.21.11的任何版本（也許還能適用於更早的版本，但尚未測試）。
+
 This project is currently applicable to any version not earlier than Minecraft Java Edition 1.21.11 (maybe applicable to earlier versions, but not yet tested).
 
 ## 安裝 Installation
 
 下載這個專案，視需求將 Anysound － DP／RP 置入 資料包／資源包 資料夾中，並重進世界或重啟伺服器即可。
+
 Download this project, put Anysound - DP/RP into the datapack/resourcepack folder as needed, and re-enter the world or restart the server.
 
 ## 使用方法 Usage
