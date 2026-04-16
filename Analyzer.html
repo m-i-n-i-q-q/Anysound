@@ -53,6 +53,7 @@ select,input{margin-top:5px;}
 // 🌐 語言資料
 const LANG = {
   zh:{
+    lang:"語言",
     title:"音訊分析器",
     file:"選擇音訊檔",
     max:"最大單音數",
@@ -64,6 +65,7 @@ const LANG = {
     chooseFile:"請選擇音訊"
   },
   en:{
+    lang:"Language",
     title:"Audio Analyzer",
     file:"Select Audio File",
     max:"Max Partials",
@@ -82,7 +84,7 @@ function setLanguage(){
 
   currentLang = document.getElementById("langSelect").value
   let L = LANG[currentLang]
-
+  langLabel.innerText = L.lang
   title.innerText = L.title
   fileLabel.innerText = L.file
   maxLabel.innerText = L.max
