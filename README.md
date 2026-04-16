@@ -17,6 +17,7 @@
 啟動設定對話框：/trigger anysound.dialog set 1
 *若遇到執行確認警告，請忽略並繼續執行之。
 欲取得音訊的分析資料（Main data），請前往分析網站（見分析器條目）。
+分析資料的輸入方式，為依序輸入一行非空行後點按「下一步」後繼續重複操作，直到全部輸入完畢時按「完成」。
 ## 引用的專案 Cited projects 
 
  - [Hmmm](https://github.com/hanmindev/Hmmm)
