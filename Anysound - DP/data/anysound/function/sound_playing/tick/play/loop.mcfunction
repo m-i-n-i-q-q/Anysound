@@ -2,5 +2,5 @@
 #$item modify entity @s container.0 {function:"minecraft:set_custom_model_data",floats:{mode:"append",values:[{type:"minecraft:sum",summands:[$(loop),1]}]}}
 #data modify entity @s data.anysound.loop set from entity @s item.components."minecraft:custom_model_data".floats[-1]
 #kill @s
-scoreboard players add @s anysound.playing.loop 1
-execute store result entity @s data.anysound.loop int 1 run scoreboard players get @s anysound.playing.loop
+#scoreboard players add @s anysound.playing.loop 1
+execute store result entity @s data.anysound.loop int 1 run scoreboard players add @s anysound.playing.loop 1
