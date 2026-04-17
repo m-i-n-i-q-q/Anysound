@@ -1,3 +1,5 @@
+gamerule max_command_forks 2147483647
+gamerule max_command_sequence_length 2147483647
 execute unless data storage anysound:player data run data modify storage anysound:player data set value []
 scoreboard objectives add anysound.dialog trigger
 scoreboard players add @a anysound.dialog 0

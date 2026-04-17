@@ -1,1 +1,1 @@
-execute as @e[type=item_display,tag=anysound.playing] at @s run function anysound:sound_playing/tick/main with entity @s data.anysound
+execute as @e[tag=anysound.playing,type=item_display] at @s run function anysound:sound_playing/tick/main with entity @s data.anysound
