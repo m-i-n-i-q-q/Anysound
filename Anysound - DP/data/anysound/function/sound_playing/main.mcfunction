@@ -1,3 +1,3 @@
-$execute unless data storage anysound_$(uuid):sound data[{name:"$(name)"}] run return run tellraw @s {translate:"anysound.playing.sound_not_exist",color:"red",fallback:"Error: The specified sound does not exist."}
-$tellraw @s {translate:"anysound.playing.start",color:"yellow",with:["$(name)"],fallback:"Start playing $(name)"}
-$execute summon marker run function anysound:sound_playing/main/main {name:"$(name)",uuid:"$(uuid)"}
+$execute unless data storage anysound_$(uuid):sound data[{name:"$(name)",author:"$(author)"}] run return run tellraw @s {translate:"anysound.playing.sound_not_exist",color:"red",fallback:"Error: The specified sound does not exist."}
+$tellraw @s {translate:"anysound.playing.start",color:"yellow",with:["$(name) - $(author)"],fallback:"Start playing $(name) - $(author)"}
+$execute summon marker run function anysound:sound_playing/main/main {name:"$(name)",uuid:"$(uuid)",author:"$(author)"}
