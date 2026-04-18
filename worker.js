@@ -41,7 +41,6 @@ return GROUND_BASES[g]*m
 self.onmessage=async function(e){
 
 let { data, sampleRate, maxPartials } = e.data
-
 maxPartials = maxPartials || 30
 
 let fftSize=2048
@@ -54,9 +53,12 @@ let hop=Math.floor(frameDt*sr)
 let window=hannWindow(fftSize)
 
 let tracks=[]
+let frames=[]  // ⭐ 儲存全部 frame
+let globalMax = 0
 
-let current=""
-let first=true
+// ====================
+// 🟡 第一階段：分析 + 收集
+// ====================
 
 for(let start=0,frameIndex=0; start+fftSize<data.length; start+=hop,frameIndex++){
 
@@ -105,11 +107,10 @@ bestDf=df
 
 if(best){
 
-let alpha = 0.2  // 平滑強度（可調）
+let alpha = 0.2
 
 best.sin_amp = best.sin_amp*(1-alpha) + d.sin_amp*alpha
 best.cos_amp = best.cos_amp*(1-alpha) + d.cos_amp*alpha
-
 best.multiplier = best.multiplier*(1-alpha) + d.multiplier*alpha
 
 best.ground_index = d.ground_index
@@ -124,26 +125,62 @@ tracks.push(t)
 
 tracks=tracks.filter(t=>t.missed<3)
 
+// ⭐ 存 frame（深拷貝）
+let frame=[]
+for(let t of tracks){
+
+let amp = Math.sqrt(t.sin_amp*t.sin_amp + t.cos_amp*t.cos_amp)
+if(amp > globalMax) globalMax = amp
+
+frame.push({
+g:t.ground_index,
+m:t.multiplier,
+s:t.sin_amp,
+c:t.cos_amp
+})
+}
+
+frames.push(frame)
+
+// ⭐ 進度
+if(frameIndex % 50 === 0){
+self.postMessage({progress:start/data.length})
+await new Promise(r=>setTimeout(r,0))
+}
+}
+
+// ====================
+// 🟢 第二階段：歸一化 + 壓縮輸出
+// ====================
+
+let current=""
+let first=true
+
+for(let frame of frames){
+
 let frameStr=""
 
-if(tracks.length===0){
+if(frame.length===0){
 frameStr="empty"
 }else{
 
-for(let t of tracks){
+for(let t of frame){
+
+let sin = t.s / (globalMax || 1)
+let cos = t.c / (globalMax || 1)
 
 let q
-if(Math.sign(t.sin_amp)>=0 && Math.sign(t.cos_amp)>=0) q=1
-else if(Math.sign(t.sin_amp)<0 && Math.sign(t.cos_amp)>=0) q=2
-else if(Math.sign(t.sin_amp)<0 && Math.sign(t.cos_amp)<0) q=3
+if(Math.sign(sin)>=0 && Math.sign(cos)>=0) q=1
+else if(Math.sign(sin)<0 && Math.sign(cos)>=0) q=2
+else if(Math.sign(sin)<0 && Math.sign(cos)<0) q=3
 else q=4
 
 frameStr +=
 q.toString()+
-t.ground_index.toString()+
-floatToBase64(Math.fround(t.multiplier))+
-floatToBase64(Math.fround(Math.abs(t.sin_amp)))+
-floatToBase64(Math.fround(Math.abs(t.cos_amp)))
+t.g.toString()+
+floatToBase64(Math.fround(t.m))+
+floatToBase64(Math.fround(Math.abs(sin)))+
+floatToBase64(Math.fround(Math.abs(cos)))
 }
 }
 
@@ -160,20 +197,19 @@ first=false
 current += addition
 first=false
 }
-
-// ⭐不卡 UI
-if(frameIndex % 50 === 0){
-self.postMessage({progress:start/data.length})
-await new Promise(r=>setTimeout(r,0))
-}
 }
 
+// 最後一段
 if(current.length>0){
 self.postMessage({segment:current})
 }
 
 self.postMessage({done:true})
 }
+
+// ====================
+// 工具函式（不變）
+// ====================
 
 function findPeaks(arr,n){
 let idx=[...arr.keys()]
