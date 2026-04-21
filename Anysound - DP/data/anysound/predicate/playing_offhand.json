@@ -1,0 +1,18 @@
+{
+  "condition": "minecraft:entity_properties",
+  "entity": "this",
+  "predicate": {
+    "minecraft:equipment": {
+      "offhand": {
+        "items": "minecraft:goat_horn",
+        "predicates": {
+          "minecraft:custom_data": {
+            "anysound:disc": {
+              "flag": {}
+            }
+          }
+        }
+      }
+    }
+  }
+}
