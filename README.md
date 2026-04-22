@@ -37,7 +37,7 @@ Start the setting dialog box: /trigger anysound.dialog set 1
 
 To obtain the main data of sound, please go to the analysis website (see Analyzer).
 
-The way to enter the main data is to enter a non-empty line in order, click "Next" and continue to repeat the operation until all the input is completed.
+The way to enter the main data is to enter a non-empty line in order, click "Next Step" and continue to repeat the operation until all the input is completed.
 
 ## 引用的專案 Cited projects 
 
