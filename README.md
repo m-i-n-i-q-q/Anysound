@@ -1,11 +1,9 @@
 
 # Anysound
 
-以能在Minecraft遊戲內建立自定的音訊為特色的資料包與資源包搭配，無需任何額外修改，這是此專案的願景。
-本專案尚在測試中，尚未完成。
+實現在Minecraft遊戲內建立自定的音訊為特色的資料包與資源包搭配，並無需任何額外修改，這是此專案的願景。
 
-The vision of this project is to match the datapack and resourcepack, which is characterized by the ability to create custom sound in the Minecraft game without any additional modification.
-This project is still under testing and has not been completed.
+The vision of this project is to create custom audio-featured data packs and resource packs within the Minecraft game without requiring any additional modifications.
 
 ## 適用版本 Version
 
