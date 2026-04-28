@@ -27,7 +27,7 @@ Download this project, put Anysound - DP/RP into the datapack/resourcepack folde
 欲取得音訊的分析資料，請前往分析網站（見「分析器」條目）。
 
 輸入分析資料的方式，為依序輸入一行非空行後點按「下一步」後繼續重複操作，直到全部輸入完畢時按「完成」。
-使用設定完成後收到的山羊角（聲音記錄）即可播放。
+使用設定完成後收到的山羊角（「音訊播放器」）即可播放。
 
 Enter information through the dialogue box to complete the audio setting.
 
@@ -37,7 +37,7 @@ Start the setting dialog box: /trigger anysound.dialog set 1
 To obtain the main data of sound, please go to the analysis website (see Analyzer).
 
 The way to enter the main data is to enter a non-empty line in order, click "Next Step" and continue to repeat the operation until all the input is completed.
-You can play the audio using the goat horn (sound record) you receive after completing the settings.
+You can play the sound using the goat horn ("sound record") you receive after completing the settings.
 
 ## 引用的專案 Cited projects 
 
