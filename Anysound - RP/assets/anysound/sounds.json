@@ -1,6 +1,6 @@
 {
     "psin.0": {
-        "subtitle": "anysound.psin.0",
+        "subtitle": "anysound.subtitle",
         "replace": true,
         "sounds": [
             {
@@ -11,7 +11,7 @@
         ]
     },
     "psin.d0": {
-        "subtitle": "anysound.psin.0",
+        "subtitle": "anysound.subtitle",
         "replace": true,
         "sounds": [
             {
@@ -22,7 +22,7 @@
         ]
     },
     "psin.1": {
-        "subtitle": "anysound.psin.1",
+        "subtitle": "anysound.subtitle",
         "replace": true,
         "sounds": [
             {
@@ -33,7 +33,7 @@
         ]
     },
     "psin.d1": {
-        "subtitle": "anysound.psin.1",
+        "subtitle": "anysound.subtitle",
         "replace": true,
         "sounds": [
             {
@@ -44,7 +44,7 @@
         ]
     },
     "psin.2": {
-        "subtitle": "anysound.psin.2",
+        "subtitle": "anysound.subtitle",
         "replace": true,
         "sounds": [
             {
@@ -55,7 +55,7 @@
         ]
     },
     "psin.d2": {
-        "subtitle": "anysound.psin.2",
+        "subtitle": "anysound.subtitle",
         "replace": true,
         "sounds": [
             {
@@ -66,7 +66,7 @@
         ]
     },
     "psin.3": {
-        "subtitle": "anysound.psin.3",
+        "subtitle": "anysound.subtitle",
         "replace": true,
         "sounds": [
             {
@@ -77,7 +77,7 @@
         ]
     },
     "psin.d3": {
-        "subtitle": "anysound.psin.3",
+        "subtitle": "anysound.subtitle",
         "replace": true,
         "sounds": [
             {
@@ -88,7 +88,7 @@
         ]
     },
     "psin.4": {
-        "subtitle": "anysound.psin.4",
+        "subtitle": "anysound.subtitle",
         "replace": true,
         "sounds": [
             {
@@ -99,7 +99,7 @@
         ]
     },
     "psin.d4": {
-        "subtitle": "anysound.psin.4",
+        "subtitle": "anysound.subtitle",
         "replace": true,
         "sounds": [
             {
@@ -110,7 +110,7 @@
         ]
     },
     "pcos.0": {
-        "subtitle": "anysound.pcos.0",
+        "subtitle": "anysound.subtitle",
         "replace": true,
         "sounds": [
             {
@@ -121,7 +121,7 @@
         ]
     },
     "pcos.d0": {
-        "subtitle": "anysound.pcos.0",
+        "subtitle": "anysound.subtitle",
         "replace": true,
         "sounds": [
             {
@@ -132,7 +132,7 @@
         ]
     },
     "pcos.1": {
-        "subtitle": "anysound.pcos.1",
+        "subtitle": "anysound.subtitle",
         "replace": true,
         "sounds": [
             {
@@ -143,7 +143,7 @@
         ]
     },
     "pcos.d1": {
-        "subtitle": "anysound.pcos.1",
+        "subtitle": "anysound.subtitle",
         "replace": true,
         "sounds": [
             {
@@ -154,7 +154,7 @@
         ]
     },
     "pcos.2": {
-        "subtitle": "anysound.pcos.2",
+        "subtitle": "anysound.subtitle",
         "replace": true,
         "sounds": [
             {
@@ -165,7 +165,7 @@
         ]
     },
     "pcos.d2": {
-        "subtitle": "anysound.pcos.2",
+        "subtitle": "anysound.subtitle",
         "replace": true,
         "sounds": [
             {
@@ -176,7 +176,7 @@
         ]
     },
     "pcos.3": {
-        "subtitle": "anysound.pcos.3",
+        "subtitle": "anysound.subtitle",
         "replace": true,
         "sounds": [
             {
@@ -187,7 +187,7 @@
         ]
     },
     "pcos.d3": {
-        "subtitle": "anysound.pcos.3",
+        "subtitle": "anysound.subtitle",
         "replace": true,
         "sounds": [
             {
@@ -198,7 +198,7 @@
         ]
     },
     "pcos.4": {
-        "subtitle": "anysound.pcos.4",
+        "subtitle": "anysound.subtitle",
         "replace": true,
         "sounds": [
             {
@@ -209,7 +209,7 @@
         ]
     },
     "pcos.d4": {
-        "subtitle": "anysound.pcos.4",
+        "subtitle": "anysound.subtitle",
         "replace": true,
         "sounds": [
             {
@@ -220,7 +220,7 @@
         ]
     },
     "nsin.0": {
-        "subtitle": "anysound.nsin.0",
+        "subtitle": "anysound.subtitle",
         "replace": true,
         "sounds": [
             {
@@ -231,7 +231,7 @@
         ]
     },
     "nsin.d0": {
-        "subtitle": "anysound.nsin.0",
+        "subtitle": "anysound.subtitle",
         "replace": true,
         "sounds": [
             {
@@ -242,7 +242,7 @@
         ]
     },
     "nsin.1": {
-        "subtitle": "anysound.nsin.1",
+        "subtitle": "anysound.subtitle",
         "replace": true,
         "sounds": [
             {
@@ -253,7 +253,7 @@
         ]
     },
     "nsin.d1": {
-        "subtitle": "anysound.nsin.1",
+        "subtitle": "anysound.subtitle",
         "replace": true,
         "sounds": [
             {
@@ -264,7 +264,7 @@
         ]
     },
     "nsin.2": {
-        "subtitle": "anysound.nsin.2",
+        "subtitle": "anysound.subtitle",
         "replace": true,
         "sounds": [
             {
@@ -275,7 +275,7 @@
         ]
     },
     "nsin.d2": {
-        "subtitle": "anysound.nsin.2",
+        "subtitle": "anysound.subtitle",
         "replace": true,
         "sounds": [
             {
@@ -286,7 +286,7 @@
         ]
     },
     "nsin.3": {
-        "subtitle": "anysound.nsin.3",
+        "subtitle": "anysound.subtitle",
         "replace": true,
         "sounds": [
             {
@@ -297,7 +297,7 @@
         ]
     },
     "nsin.d3": {
-        "subtitle": "anysound.nsin.3",
+        "subtitle": "anysound.subtitle",
         "replace": true,
         "sounds": [
             {
@@ -308,7 +308,7 @@
         ]
     },
     "nsin.4": {
-        "subtitle": "anysound.nsin.4",
+        "subtitle": "anysound.subtitle",
         "replace": true,
         "sounds": [
             {
@@ -319,7 +319,7 @@
         ]
     },
     "nsin.d4": {
-        "subtitle": "anysound.nsin.4",
+        "subtitle": "anysound.subtitle",
         "replace": true,
         "sounds": [
             {
@@ -330,7 +330,7 @@
         ]
     },
     "ncos.0": {
-        "subtitle": "anysound.ncos.0",
+        "subtitle": "anysound.subtitle",
         "replace": true,
         "sounds": [
             {
@@ -341,7 +341,7 @@
         ]
     },
     "ncos.d0": {
-        "subtitle": "anysound.ncos.0",
+        "subtitle": "anysound.subtitle",
         "replace": true,
         "sounds": [
             {
@@ -352,7 +352,7 @@
         ]
     },
     "ncos.1": {
-        "subtitle": "anysound.ncos.1",
+        "subtitle": "anysound.subtitle",
         "replace": true,
         "sounds": [
             {
@@ -363,7 +363,7 @@
         ]
     },
     "ncos.d1": {
-        "subtitle": "anysound.ncos.1",
+        "subtitle": "anysound.subtitle",
         "replace": true,
         "sounds": [
             {
@@ -374,7 +374,7 @@
         ]
     },
     "ncos.2": {
-        "subtitle": "anysound.ncos.2",
+        "subtitle": "anysound.subtitle",
         "replace": true,
         "sounds": [
             {
@@ -385,7 +385,7 @@
         ]
     },
     "ncos.d2": {
-        "subtitle": "anysound.ncos.2",
+        "subtitle": "anysound.subtitle",
         "replace": true,
         "sounds": [
             {
@@ -396,7 +396,7 @@
         ]
     },
     "ncos.3": {
-        "subtitle": "anysound.ncos.3",
+        "subtitle": "anysound.subtitle",
         "replace": true,
         "sounds": [
             {
@@ -407,7 +407,7 @@
         ]
     },
     "ncos.d3": {
-        "subtitle": "anysound.ncos.3",
+        "subtitle": "anysound.subtitle",
         "replace": true,
         "sounds": [
             {
@@ -418,7 +418,7 @@
         ]
     },
     "ncos.4": {
-        "subtitle": "anysound.ncos.4",
+        "subtitle": "anysound.subtitle",
         "replace": true,
         "sounds": [
             {
@@ -429,7 +429,7 @@
         ]
     },
     "ncos.d4": {
-        "subtitle": "anysound.ncos.4",
+        "subtitle": "anysound.subtitle",
         "replace": true,
         "sounds": [
             {
