@@ -1,7 +1,6 @@
 $data modify storage anysound_:analyzer slice.output.c set value 0b$(value)
 execute store result score P0 io run data get storage anysound_:analyzer slice.output.c
 
-#scoreboard players set P0 io 1199259045
 function float:32/decompose/main
 scoreboard players operation P0 io = R0 io
 scoreboard players operation P1 io = R1 io

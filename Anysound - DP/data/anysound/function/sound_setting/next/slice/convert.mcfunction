@@ -1,5 +1,5 @@
-$data modify storage anysound_:analyzer slice.output.q set value $(q)I
-$data modify storage anysound_:analyzer slice.output.g set value $(g)I
+$data modify storage anysound_:analyzer slice.output.q set value "$(q)"
+$data modify storage anysound_:analyzer slice.output.g set value "$(g)"
 $data modify storage base64_decoder:input value set value "$(m)"
 function base64_decoder:main
 function anysound:sound_setting/next/slice/convert/m with storage base64_decoder:output
