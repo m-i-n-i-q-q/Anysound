@@ -6,11 +6,11 @@ $data modify entity @s data.anysound merge value {storage:"anysound_$(uuid):soun
 #data modify entity @s data.anysound.uuid set from storage gu:main out
 
 ##😒
-#scoreboard players set @s anysound.playing.delayflag 1
+#scoreboard players set @s anysound.playing.delayflag 0
 #scoreboard players set @s anysound.playing.index 0
 #data modify entity @s data.anysound.index set value 0
 ##😏
-execute store success score @s anysound.playing.delayflag store result entity @s data.anysound.index int 1 run scoreboard players set @s anysound.playing.index 0
+execute store result score @s anysound.playing.delayflag store result entity @s data.anysound.index int 1 run scoreboard players set @s anysound.playing.index 0
 
 
 #start
