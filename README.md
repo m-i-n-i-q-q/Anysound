@@ -45,9 +45,5 @@ You can play the sound using the goat horn ("sound record") you receive after co
  - [gu](https://modrinth.com/datapack/get-uuid)
 
 ## 分析器 Analyzer
-
-預設為第一個網站。視情況可能需要改用第二個網站(目前是)。
-The first website is used by default. A second website may be needed depending on the situation (currently it is).
-
- - [https://purple-aubine-80.tiiny.site/](https://purple-aubine-80.tiiny.site/)
- - [https://beige-bee-55.tiiny.site/](https://beige-bee-55.tiiny.site/)
+網站目前死了(;_;)
+website dead current :(

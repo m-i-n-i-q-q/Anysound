@@ -8,4 +8,4 @@ scoreboard objectives add anysound.playing.index dummy
 scoreboard objectives add anysound.playing.loop dummy
 scoreboard objectives add anysound.playing.delayflag dummy
 scoreboard objectives add anysound.const dummy
-scoreboard players set anysound.4 anysound.const 4
+scoreboard players set anysound.8 anysound.const 8
